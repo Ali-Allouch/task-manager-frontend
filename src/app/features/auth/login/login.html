@@ -1,0 +1,41 @@
+<div class="login-container">
+  <h2>Login - Task Manager</h2>
+
+  @if (errorMessage) {
+  <div class="server-error">
+    {{ errorMessage }}
+  </div>
+  }
+
+  <form #loginForm="ngForm" (ngSubmit)="loginForm.valid && onLogin()">
+    <input
+      type="email"
+      name="email"
+      [(ngModel)]="credentials.email"
+      placeholder="Email"
+      required
+      email
+      #email="ngModel"
+    />
+
+    @if (email.invalid && (email.dirty || email.touched)) {
+    <small class="error-text">Email is required</small>
+    }
+
+    <input
+      type="password"
+      name="password"
+      [(ngModel)]="credentials.password"
+      placeholder="Password"
+      required
+      minlength="6"
+      #pass="ngModel"
+    />
+
+    @if (pass.invalid && (pass.dirty || pass.touched)) {
+    <small class="error-text">Password should have minimum 6 characters</small>
+    }
+
+    <button type="submit" [disabled]="!loginForm.valid">Login</button>
+  </form>
+</div>
