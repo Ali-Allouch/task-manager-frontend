@@ -28,7 +28,7 @@
       [(ngModel)]="credentials.password"
       placeholder="Password"
       required
-      minlength="6"
+      minlength="8"
       #pass="ngModel"
     />
 
@@ -38,4 +38,6 @@
 
     <button type="submit" [disabled]="!loginForm.valid">Login</button>
   </form>
+
+  <p>Don't have an account? <a routerLink="/register">Register here</a></p>
 </div>
