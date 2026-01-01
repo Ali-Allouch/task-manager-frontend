@@ -15,6 +15,7 @@ import { Task } from '../../core/models/task';
 export class DashboardComponent implements OnInit {
   tasks: Task[] = [];
   isLoading = false;
+  currentFilter: string = 'all';
 
   constructor(
     private tasksService: TasksService,
@@ -27,9 +28,14 @@ export class DashboardComponent implements OnInit {
     this.loadTasks();
   }
 
+  setFilter(status: string) {
+    this.currentFilter = status;
+    this.loadTasks();
+  }
+
   loadTasks() {
     this.isLoading = true;
-    this.tasksService.getTasks().subscribe({
+    this.tasksService.getTasks(this.currentFilter).subscribe({
       next: (res) => {
         this.tasks = res;
         this.isLoading = false;
