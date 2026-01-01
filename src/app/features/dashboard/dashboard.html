@@ -1,21 +1,30 @@
 <div class="dashboard-container">
   <div class="header">
     <h1>My Tasks</h1>
+    <a routerLink="/tasks/new" class="add-task-btn"> <i class="fas fa-plus"></i> Add New Task </a>
     <button (click)="logout()" class="logout-btn">Logout</button>
   </div>
 
+  @if (isLoading) {
+  <div class="loader-container">
+    <i class="fas fa-spinner fa-spin"></i>
+    <p>Loading your tasks...</p>
+  </div>
+  } @else {
   <div class="tasks-grid">
     @for (task of tasks; track task.id) {
-      <div class="task-card" [ngClass]="task.status">
-        <div class="status-badge">{{ task.status }}</div>
-        <h3>{{ task.title }}</h3>
-        <p>{{ task.description }}</p>
-        <div class="card-footer">
-          <small>Created At: {{ task.created_at | date }}</small>
-        </div>
+    <div class="task-card" [ngClass]="task.status" [routerLink]="['/tasks', task.id]">
+      <div class="status-badge">{{ task.status }}</div>
+      <h3>{{ task.title }}</h3>
+      <p>{{ task.description }}</p>
+
+      <div class="card-footer">
+        <small>Created At: {{ task.created_at | date }}</small>
       </div>
+    </div>
     } @empty {
-      <div class="empty-state">There are no tasks.</div>
+    <div class="empty-state">There are no tasks.</div>
     }
   </div>
+  }
 </div>

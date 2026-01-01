@@ -1,0 +1,57 @@
+<div class="task-details-container">
+  @if (isFetching) {
+  <div class="page-loader">
+    <i class="fas fa-spinner fa-spin"></i>
+    <p>Loading task details...</p>
+  </div>
+  } @else if (taskNotFound) {
+  <div class="error-state">
+    <i class="fas fa-exclamation-triangle"></i>
+    <h3>Task Not Found</h3>
+    <p>The task you are looking for does not exist or has been deleted.</p>
+    <button routerLink="/dashboard" class="cancel-btn">Back to Dashboard</button>
+  </div>
+  } @else {
+  <h2>{{ isEditMode ? 'Edit Task' : 'Add New Task' }}</h2>
+
+  <form (ngSubmit)="saveTask()" #taskForm="ngForm">
+    <input type="text" name="title" [(ngModel)]="task.title" placeholder="Title" required />
+
+    <textarea
+      name="description"
+      [(ngModel)]="task.description"
+      placeholder="Description"
+    ></textarea>
+
+    <select name="status" [(ngModel)]="task.status">
+      <option value="pending">Pending</option>
+      <option value="in_progress">In Progress</option>
+      <option value="completed">Completed</option>
+    </select>
+
+    <div class="actions">
+      <button type="submit" [disabled]="!taskForm.valid || isLoading || isDeleting">
+        @if (isLoading) { <i class="fas fa-spinner fa-spin"></i> Saving... } @else {
+        <i class="fas {{ isEditMode ? 'fa-save' : 'fa-plus' }}"></i>
+        {{ isEditMode ? 'Save changes' : 'Create' }} }
+      </button>
+
+      @if (isEditMode) {
+      <button
+        type="button"
+        class="delete-btn"
+        (click)="onDelete()"
+        [disabled]="isLoading || isDeleting"
+      >
+        @if (isDeleting) { <i class="fas fa-spinner fa-spin"></i> Deleting... } @else {
+        <i class="fas fa-trash"></i> Delete }
+      </button>
+      }
+
+      <button type="button" routerLink="/dashboard" class="cancel-btn">
+        <i class="fas fa-times"></i> Cancel
+      </button>
+    </div>
+  </form>
+  }
+</div>
