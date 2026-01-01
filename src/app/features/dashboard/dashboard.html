@@ -1,0 +1,21 @@
+<div class="dashboard-container">
+  <div class="header">
+    <h1>My Tasks</h1>
+    <button (click)="logout()" class="logout-btn">Logout</button>
+  </div>
+
+  <div class="tasks-grid">
+    @for (task of tasks; track task.id) {
+      <div class="task-card" [ngClass]="task.status">
+        <div class="status-badge">{{ task.status }}</div>
+        <h3>{{ task.title }}</h3>
+        <p>{{ task.description }}</p>
+        <div class="card-footer">
+          <small>Created At: {{ task.created_at | date }}</small>
+        </div>
+      </div>
+    } @empty {
+      <div class="empty-state">There are no tasks.</div>
+    }
+  </div>
+</div>

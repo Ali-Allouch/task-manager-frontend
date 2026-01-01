@@ -26,7 +26,8 @@ export class LoginComponent {
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
-        this.errorMessage = err.error.message || 'Something went wrong, please try again later.';
+        this.errorMessage =
+          err.error.message || err.message || 'Something went wrong, please try again later.';
       },
     });
   }
