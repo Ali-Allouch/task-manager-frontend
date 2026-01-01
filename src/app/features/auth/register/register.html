@@ -35,7 +35,13 @@
       minlength="8"
     />
 
-    <button type="submit" [disabled]="!regForm.valid">Register</button>
+    <button type="submit" [disabled]="!regForm.valid || isLoading">
+      @if (isLoading) {
+      <span>Creating account...</span>
+      } @else {
+      <span>Register</span>
+      }
+    </button>
   </form>
 
   <p>Already have an account? <a routerLink="/login">Login here</a></p>

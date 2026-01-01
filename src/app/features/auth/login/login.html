@@ -33,10 +33,16 @@
     />
 
     @if (pass.invalid && (pass.dirty || pass.touched)) {
-    <small class="error-text">Password should have minimum 6 characters</small>
+    <small class="error-text">Password should have minimum 8 characters</small>
     }
 
-    <button type="submit" [disabled]="!loginForm.valid">Login</button>
+    <button type="submit" [disabled]="!loginForm.valid || isLoading">
+      @if (isLoading) {
+      <span>Logging in...</span>
+      } @else {
+      <span>Login</span>
+      }
+    </button>
   </form>
 
   <p>Don't have an account? <a routerLink="/register">Register here</a></p>
