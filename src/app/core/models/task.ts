@@ -3,5 +3,6 @@ export interface Task {
   title: string;
   description: string;
   status: 'pending' | 'in_progress' | 'completed';
+  attachment: string | null;
   created_at: string;
 }

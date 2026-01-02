@@ -6,6 +6,7 @@ import { TasksService } from '../../../core/services/tasks';
 import { Router, RouterLink } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-task-details',
@@ -14,12 +15,22 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './task-details.scss',
 })
 export class TaskDetailsComponent implements OnInit {
-  task: Task = { id: 0, title: '', description: '', status: 'pending', created_at: '' };
+  task: Task = {
+    id: 0,
+    title: '',
+    description: '',
+    status: 'pending',
+    created_at: '',
+    attachment: null,
+  };
   isEditMode = false;
   isLoading = false;
   isFetching = false;
   isDeleting = false;
   taskNotFound = false;
+  selectedFile: File | null = null;
+  selectedFileName = '';
+  isDownloading = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -58,22 +69,48 @@ export class TaskDetailsComponent implements OnInit {
     });
   }
 
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+      this.selectedFileName = file.name;
+    }
+  }
+
   saveTask() {
     this.isLoading = true;
-    const request = this.isEditMode
-      ? this.tasksService.updateTask(this.task.id, this.task)
-      : this.tasksService.addTask(this.task);
 
-    request.subscribe({
-      next: () => {
-        this.isLoading = false;
-        this.router.navigate(['/dashboard']);
-      },
-      error: () => {
-        this.isLoading = false;
-        this.cdr.detectChanges();
-      },
-    });
+    const formData = new FormData();
+    formData.append('title', this.task.title);
+    formData.append('description', this.task.description || '');
+    formData.append('status', this.task.status);
+
+    if (this.selectedFile) {
+      formData.append('attachment', this.selectedFile);
+    }
+
+    if (this.isEditMode) {
+      formData.append('_method', 'PUT');
+      this.tasksService.updateTask(this.task.id, formData).subscribe({
+        next: () => this.handleSuccess(),
+        error: () => this.handleError(),
+      });
+    } else {
+      this.tasksService.addTask(formData).subscribe({
+        next: () => this.handleSuccess(),
+        error: () => this.handleError(),
+      });
+    }
+  }
+
+  private handleSuccess() {
+    this.isLoading = false;
+    this.router.navigate(['/dashboard']);
+  }
+
+  private handleError() {
+    this.isLoading = false;
+    this.cdr.detectChanges();
   }
 
   onDelete() {
@@ -91,5 +128,32 @@ export class TaskDetailsComponent implements OnInit {
         },
       });
     }
+  }
+
+  onDownload() {
+    if (!this.task.id) return;
+
+    this.isDownloading = true;
+    this.tasksService
+      .downloadAttachment(this.task.id)
+      .pipe(
+        finalize(() => {
+          this.isDownloading = false;
+          this.cdr.detectChanges();
+        })
+      )
+      .subscribe({
+        next: (blob: Blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = this.task.attachment?.split('/').pop() || 'attachment';
+          link.click();
+          window.URL.revokeObjectURL(url);
+        },
+        error: (err) => {
+          console.error('Download failed', err);
+        },
+      });
   }
 }

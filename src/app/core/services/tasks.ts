@@ -25,7 +25,7 @@ export class TasksService {
     return this.http.get<Task>(`${this.apiUrl}/${id}`);
   }
 
-  addTask(taskData: { title: string; description: string; status: string }): Observable<any> {
+  addTask(taskData: any): Observable<any> {
     return this.http.post(this.apiUrl, taskData);
   }
 
@@ -35,5 +35,11 @@ export class TasksService {
 
   deleteTask(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  downloadAttachment(taskId: number): Observable<Blob> {
+    return this.http.get(`/api/tasks/${taskId}/download`, {
+      responseType: 'blob',
+    });
   }
 }

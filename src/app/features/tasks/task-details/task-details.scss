@@ -102,6 +102,73 @@
       resize: vertical;
     }
 
+    .attachment-section {
+      .existing-attachment {
+        margin-bottom: 1rem;
+
+        .download-link-btn {
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          border: 0;
+          gap: 8px;
+          color: #2b6cb0;
+          text-decoration: none;
+          font-weight: 600;
+          padding: 8px 12px;
+          background: #ebf8ff;
+          border-radius: 6px;
+          transition: all 0.2s;
+
+          &:hover {
+            background: #bee3f8;
+            color: #2c5282;
+            transform: translateY(-1px);
+          }
+
+          i {
+            font-size: 1rem;
+          }
+        }
+      }
+
+      .file-input-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 5px;
+
+        label {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: #f8f9fa;
+          border: 1px solid #ddd;
+          padding: 10px 15px;
+          border-radius: 8px;
+          cursor: pointer;
+          font-weight: 500;
+          color: #4a5568;
+          width: fit-content;
+          transition: background 0.2s;
+
+          &:hover {
+            background: #edf2f7;
+          }
+        }
+
+        input[type='file'] {
+          display: none;
+        }
+
+        .file-name {
+          font-size: 0.85rem;
+          color: #4caf50;
+          font-weight: 600;
+        }
+      }
+    }
+
     .actions {
       display: flex;
       gap: 1rem;
