@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+@import './assets/fonts/poppins/font.min.css';
+
+:root {
+  --primary-font: 'Poppins', sans-serif;
+}
+
+body {
+  font-family: var(--primary-font);
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: var(--primary-font);
+}
