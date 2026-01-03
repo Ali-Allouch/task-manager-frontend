@@ -153,6 +153,7 @@ export class TaskDetailsComponent implements OnInit {
           window.URL.revokeObjectURL(url);
         },
         error: (err) => {
+          this.isDownloading = false;
           console.error('Download failed', err);
         },
       });
@@ -167,7 +168,10 @@ export class TaskDetailsComponent implements OnInit {
           this.task.attachment = null;
           this.cdr.detectChanges();
         },
-        error: (err) => console.error('Failed to remove attachment', err),
+        error: (err) => {
+          this.isRemoving = false;
+          console.error('Failed to remove attachment', err);
+        },
       });
     }
   }

@@ -3,8 +3,9 @@
 
   <div class="header-actions">
     <a routerLink="/tasks/new" class="add-task-btn"> <i class="fas fa-plus"></i> Add New Task </a>
-    <button (click)="onLogout()" class="logout-btn">
-      <i class="fas fa-sign-out-alt"></i> Logout
+    <button (click)="onLogout()" class="logout-btn" [disabled]="isLoggingOut">
+      <i class="fas {{ isLoggingOut ? 'fa-spinner fa-spin' : 'fa-sign-out-alt' }}"></i>
+      {{ isLoggingOut ? 'Logging out...' : 'Logout' }}
     </button>
   </div>
 </div>

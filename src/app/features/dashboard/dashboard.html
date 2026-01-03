@@ -1,5 +1,8 @@
 <div class="dashboard-container">
-  <app-dashboard-header (logoutRequest)="logout()"></app-dashboard-header>
+  <app-dashboard-header
+    [isLoggingOut]="isLoggingOut"
+    (logoutRequest)="logout()"
+  ></app-dashboard-header>
 
   <app-dashboard-filter [currentFilter]="currentFilter" (filterChange)="setFilter($event)">
   </app-dashboard-filter>

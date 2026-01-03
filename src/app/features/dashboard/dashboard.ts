@@ -18,8 +18,9 @@ import { DashboardTasksGrid } from './components/dashboard-tasks-grid/dashboard-
 })
 export class DashboardComponent implements OnInit {
   tasks: Task[] = [];
-  isLoading = false;
   currentFilter: string = 'all';
+  isLoading = false;
+  isLoggingOut = false;
 
   constructor(
     private tasksService: TasksService,
@@ -54,13 +55,16 @@ export class DashboardComponent implements OnInit {
   }
 
   logout() {
+    this.isLoggingOut = true;
     this.authService.logout().subscribe({
       next: () => {
+        this.isLoggingOut = false;
         this.clearSession();
       },
       error: (err) => {
-        console.error('Logout failed on server', err);
+        this.isLoggingOut = false;
         this.clearSession();
+        console.error('Logout failed on server', err);
       },
     });
   }

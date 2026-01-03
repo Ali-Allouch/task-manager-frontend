@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -9,6 +9,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './dashboard-header.scss',
 })
 export class DashboardHeader {
+  @Input() isLoggingOut = false;
   @Output() logoutRequest = new EventEmitter<void>();
 
   onLogout() {
