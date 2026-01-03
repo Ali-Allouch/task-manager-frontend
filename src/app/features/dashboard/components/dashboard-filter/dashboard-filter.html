@@ -1,0 +1,12 @@
+<div class="filter-bar">
+  <button [class.active]="currentFilter === 'all'" (click)="setFilter('all')">All</button>
+  <button [class.active]="currentFilter === 'pending'" (click)="setFilter('pending')">
+    Pending
+  </button>
+  <button [class.active]="currentFilter === 'in_progress'" (click)="setFilter('in_progress')">
+    In Progress
+  </button>
+  <button [class.active]="currentFilter === 'completed'" (click)="setFilter('completed')">
+    Completed
+  </button>
+</div>

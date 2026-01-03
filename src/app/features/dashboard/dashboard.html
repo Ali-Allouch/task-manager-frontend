@@ -1,53 +1,12 @@
 <div class="dashboard-container">
-  <div class="header">
-    <h1>My Tasks</h1>
+  <app-dashboard-header (logoutRequest)="logout()"></app-dashboard-header>
 
-    <div class="header-actions">
-      <a routerLink="/tasks/new" class="add-task-btn"> <i class="fas fa-plus"></i> Add New Task </a>
-      <button (click)="logout()" class="logout-btn">
-        <i class="fas fa-sign-out-alt"></i> Logout
-      </button>
-    </div>
-  </div>
-
-  <div class="filter-bar">
-    <button [class.active]="currentFilter === 'all'" (click)="setFilter('all')">All</button>
-    <button [class.active]="currentFilter === 'pending'" (click)="setFilter('pending')">
-      Pending
-    </button>
-    <button [class.active]="currentFilter === 'in_progress'" (click)="setFilter('in_progress')">
-      In Progress
-    </button>
-    <button [class.active]="currentFilter === 'completed'" (click)="setFilter('completed')">
-      Completed
-    </button>
-  </div>
+  <app-dashboard-filter [currentFilter]="currentFilter" (filterChange)="setFilter($event)">
+  </app-dashboard-filter>
 
   @if (isLoading) {
-  <div class="loader-container">
-    <i class="fas fa-spinner fa-spin"></i>
-    <p>Loading your tasks...</p>
-  </div>
+  <app-loader message="Loading your tasks..."></app-loader>
   } @else {
-  <div class="tasks-grid">
-    @for (task of tasks; track task.id) {
-    <div class="task-card" [ngClass]="task.status" [routerLink]="['/tasks', task.id]">
-      <div class="status-badge">{{ task.status }}</div>
-      <h3>{{ task.title }}</h3>
-      <p>{{ task.description }}</p>
-
-      <div class="card-footer">
-        <small>Created At: {{ task.created_at | date }}</small>
-      </div>
-    </div>
-    } @empty {
-    <div class="empty-state">
-      <div class="empty-icon">
-        <i class="fas fa-clipboard-list"></i>
-      </div>
-      <h3>There are no tasks.</h3>
-    </div>
-    }
-  </div>
+  <app-dashboard-tasks-grid [tasks]="tasks"></app-dashboard-tasks-grid>
   }
 </div>

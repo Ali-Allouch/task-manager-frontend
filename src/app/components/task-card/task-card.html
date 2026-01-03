@@ -1,0 +1,9 @@
+<div class="task-card" [ngClass]="task.status" [routerLink]="['/tasks', task.id]">
+  <div class="status-badge">{{ task.status }}</div>
+  <h3>{{ task.title }}</h3>
+  <p>{{ task.description }}</p>
+
+  <div class="card-footer">
+    <small>Created At: {{ task.created_at | date }}</small>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="tasks-grid">
+  @for (task of tasks; track task.id) {
+  <app-task-card [task]="task"></app-task-card>
+  } @empty {
+  <div class="empty-state">
+    <div class="empty-icon">
+      <i class="fas fa-clipboard-list"></i>
+    </div>
+    <h3>There are no tasks.</h3>
+  </div>
+  }
+</div>

@@ -1,0 +1,33 @@
+.task-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #ccc;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    border-color: #4caf50;
+  }
+
+  &.pending {
+    border-top-color: #ff9800;
+  }
+  &.in_progress {
+    border-top-color: #2196f3;
+  }
+  &.completed {
+    border-top-color: #4caf50;
+  }
+
+  .status-badge {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #666;
+  }
+}

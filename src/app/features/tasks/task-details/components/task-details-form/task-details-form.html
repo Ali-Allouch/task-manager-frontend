@@ -1,0 +1,64 @@
+<h2>{{ isEditMode ? 'Edit Task' : 'Add New Task' }}</h2>
+
+<form (ngSubmit)="save.emit()" #taskForm="ngForm">
+  <input type="text" name="title" [(ngModel)]="task.title" placeholder="Title" required />
+
+  <textarea name="description" [(ngModel)]="task.description" placeholder="Description"></textarea>
+
+  <select name="status" [(ngModel)]="task.status">
+    <option value="pending">Pending</option>
+    <option value="in_progress">In Progress</option>
+    <option value="completed">Completed</option>
+  </select>
+
+  <div class="attachment-section">
+    @if (task.attachment) {
+    <div class="existing-attachment">
+      <button
+        type="button"
+        (click)="download.emit()"
+        class="download-link-btn"
+        [disabled]="isDownloading"
+      >
+        <i class="fas {{ isDownloading ? 'fa-spinner fa-spin' : 'fa-download' }}"></i>
+        {{ isDownloading ? 'Downloading...' : 'Download current attachment' }}
+      </button>
+    </div>
+    }
+
+    <div class="file-input-container">
+      <label for="attachment">
+        <i class="fas fa-paperclip"></i>
+        {{ task.attachment ? 'Change attachment' : 'Add attachment' }}
+      </label>
+      <input type="file" id="attachment" (change)="fileSelected.emit($event)" />
+      @if (selectedFileName) {
+      <span class="file-name">{{ selectedFileName }}</span>
+      }
+    </div>
+  </div>
+
+  <div class="actions">
+    <button type="submit" [disabled]="!taskForm.valid || isLoading || isDeleting">
+      @if (isLoading) { <i class="fas fa-spinner fa-spin"></i> Saving... } @else {
+      <i class="fas {{ isEditMode ? 'fa-save' : 'fa-plus' }}"></i>
+      {{ isEditMode ? 'Save changes' : 'Create' }} }
+    </button>
+
+    @if (isEditMode) {
+    <button
+      type="button"
+      class="delete-btn"
+      (click)="delete.emit()"
+      [disabled]="isLoading || isDeleting"
+    >
+      @if (isDeleting) { <i class="fas fa-spinner fa-spin"></i> Deleting... } @else {
+      <i class="fas fa-trash"></i> Delete }
+    </button>
+    }
+
+    <button type="button" routerLink="/dashboard" class="cancel-btn">
+      <i class="fas fa-times"></i> Cancel
+    </button>
+  </div>
+</form>

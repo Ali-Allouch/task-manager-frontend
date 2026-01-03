@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { Task } from '../../../core/models/task';
-import { ActivatedRoute } from '@angular/router';
-import { TasksService } from '../../../core/services/tasks';
-import { Router, RouterLink } from '@angular/router';
-import { ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
+import { Task } from '../../../core/models/task';
+import { TasksService } from '../../../core/services/tasks';
+import { Loader } from '../../../components/loader/loader';
+import { TaskDetailsNotFound } from './components/task-details-not-found/task-details-not-found';
+import { TaskDetailsForm } from './components/task-details-form/task-details-form';
 
 @Component({
   selector: 'app-task-details',
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, Loader, TaskDetailsNotFound, TaskDetailsForm],
   templateUrl: './task-details.html',
   styleUrl: './task-details.scss',
 })

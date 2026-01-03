@@ -1,14 +1,18 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { Task } from '../../core/models/task';
 import { AuthService } from '../../core/services/auth';
 import { TasksService } from '../../core/services/tasks';
-import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
-import { Task } from '../../core/models/task';
+import { Loader } from '../../components/loader/loader';
+import { DashboardHeader } from './components/dashboard-header/dashboard-header';
+import { DashboardFilter } from './components/dashboard-filter/dashboard-filter';
+import { DashboardTasksGrid } from './components/dashboard-tasks-grid/dashboard-tasks-grid';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, Loader, DashboardHeader, DashboardFilter, DashboardTasksGrid],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })
