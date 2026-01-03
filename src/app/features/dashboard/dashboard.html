@@ -4,7 +4,11 @@
     (logoutRequest)="logout()"
   ></app-dashboard-header>
 
-  <app-dashboard-filter [currentFilter]="currentFilter" (filterChange)="setFilter($event)">
+  <app-dashboard-filter
+    [currentFilter]="currentFilter"
+    (filterChange)="setFilter($event)"
+    (searchChange)="onSearch($event)"
+  >
   </app-dashboard-filter>
 
   @if (isLoading) {

@@ -19,6 +19,7 @@ import { DashboardTasksGrid } from './components/dashboard-tasks-grid/dashboard-
 export class DashboardComponent implements OnInit {
   tasks: Task[] = [];
   currentFilter: string = 'all';
+  searchTerm: string = '';
   isLoading = false;
   isLoggingOut = false;
 
@@ -33,6 +34,11 @@ export class DashboardComponent implements OnInit {
     this.loadTasks();
   }
 
+  onSearch(query: string) {
+    this.searchTerm = query;
+    this.loadTasks();
+  }
+
   setFilter(status: string) {
     this.currentFilter = status;
     this.loadTasks();
@@ -40,7 +46,7 @@ export class DashboardComponent implements OnInit {
 
   loadTasks() {
     this.isLoading = true;
-    this.tasksService.getTasks(this.currentFilter).subscribe({
+    this.tasksService.getTasks(this.currentFilter, this.searchTerm).subscribe({
       next: (res) => {
         this.tasks = res;
         this.isLoading = false;

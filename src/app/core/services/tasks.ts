@@ -11,11 +11,15 @@ export class TasksService {
 
   constructor(private http: HttpClient) {}
 
-  getTasks(status?: string): Observable<Task[]> {
+  getTasks(status?: string, search: string = ''): Observable<Task[]> {
     let params = new HttpParams();
 
     if (status && status !== 'all') {
       params = params.set('status', status);
+    }
+
+    if (search) {
+      params = params.set('search', search);
     }
 
     return this.http.get<Task[]>(this.apiUrl, { params });
