@@ -38,8 +38,12 @@ export class TasksService {
   }
 
   downloadAttachment(taskId: number): Observable<Blob> {
-    return this.http.get(`/api/tasks/${taskId}/download`, {
+    return this.http.get(`${this.apiUrl}/${taskId}/download`, {
       responseType: 'blob',
     });
+  }
+
+  removeAttachment(taskId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${taskId}/attachment`);
   }
 }

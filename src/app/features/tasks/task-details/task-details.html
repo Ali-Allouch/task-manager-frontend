@@ -10,10 +10,12 @@
     [isLoading]="isLoading"
     [isDeleting]="isDeleting"
     [isDownloading]="isDownloading"
+    [isRemoving]="isRemoving"
     [selectedFileName]="selectedFileName"
     (save)="saveTask()"
     (delete)="onDelete()"
     (download)="onDownload()"
+    (remove)="onRemoveAttachment()"
     (fileSelected)="onFileSelected($event)"
   ></app-task-details-form>
   }

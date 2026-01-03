@@ -16,10 +16,12 @@ export class TaskDetailsForm {
   @Input() isLoading = false;
   @Input() isDeleting = false;
   @Input() isDownloading = false;
+  @Input() isRemoving = false;
   @Input() selectedFileName = '';
 
   @Output() save = new EventEmitter<void>();
   @Output() delete = new EventEmitter<void>();
   @Output() download = new EventEmitter<void>();
+  @Output() remove = new EventEmitter<void>();
   @Output() fileSelected = new EventEmitter<any>();
 }

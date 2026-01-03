@@ -14,15 +14,27 @@
   <div class="attachment-section">
     @if (task.attachment) {
     <div class="existing-attachment">
-      <button
-        type="button"
-        (click)="download.emit()"
-        class="download-link-btn"
-        [disabled]="isDownloading"
-      >
-        <i class="fas {{ isDownloading ? 'fa-spinner fa-spin' : 'fa-download' }}"></i>
-        {{ isDownloading ? 'Downloading...' : 'Download current attachment' }}
-      </button>
+      <div class="attachment-actions">
+        <button
+          type="button"
+          (click)="download.emit()"
+          class="download-link-btn"
+          [disabled]="isDownloading"
+        >
+          <i class="fas {{ isDownloading ? 'fa-spinner fa-spin' : 'fa-download' }}"></i>
+          Download attachment
+        </button>
+
+        <button
+          type="button"
+          (click)="remove.emit()"
+          class="remove-attachment-btn"
+          title="Remove attachment"
+          [disabled]="isRemoving"
+        >
+          <i class="fas {{ isRemoving ? 'fa-spinner fa-spin' : 'fa-times' }}"></i>
+        </button>
+      </div>
     </div>
     }
 

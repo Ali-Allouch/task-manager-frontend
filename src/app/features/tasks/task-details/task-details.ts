@@ -31,6 +31,7 @@ export class TaskDetailsComponent implements OnInit {
   selectedFile: File | null = null;
   selectedFileName = '';
   isDownloading = false;
+  isRemoving = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -155,5 +156,19 @@ export class TaskDetailsComponent implements OnInit {
           console.error('Download failed', err);
         },
       });
+  }
+
+  onRemoveAttachment() {
+    if (confirm('Are you sure you want to remove the attachment?')) {
+      this.isRemoving = true;
+      this.tasksService.removeAttachment(this.task.id).subscribe({
+        next: () => {
+          this.isRemoving = false;
+          this.task.attachment = null;
+          this.cdr.detectChanges();
+        },
+        error: (err) => console.error('Failed to remove attachment', err),
+      });
+    }
   }
 }
