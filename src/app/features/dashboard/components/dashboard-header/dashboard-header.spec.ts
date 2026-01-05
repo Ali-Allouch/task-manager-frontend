@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { provideRouter } from '@angular/router';
 import { DashboardHeader } from './dashboard-header';
 
 describe('DashboardHeader', () => {
@@ -8,9 +8,9 @@ describe('DashboardHeader', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DashboardHeader]
-    })
-    .compileComponents();
+      imports: [DashboardHeader],
+      providers: [provideRouter([])],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardHeader);
     component = fixture.componentInstance;
