@@ -18,5 +18,7 @@
     (remove)="onRemoveAttachment()"
     (fileSelected)="onFileSelected($event)"
   ></app-task-details-form>
+  <hr class="section-divider" />
+  <app-task-comments [taskId]="task.id"></app-task-comments>
   }
 </div>

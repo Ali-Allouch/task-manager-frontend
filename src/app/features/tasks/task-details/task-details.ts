@@ -7,10 +7,11 @@ import { TasksService } from '../../../core/services/tasks';
 import { Loader } from '../../../components/loader/loader';
 import { TaskDetailsNotFound } from './components/task-details-not-found/task-details-not-found';
 import { TaskDetailsForm } from './components/task-details-form/task-details-form';
+import { TaskComments } from './components/task-comments/task-comments';
 
 @Component({
   selector: 'app-task-details',
-  imports: [FormsModule, Loader, TaskDetailsNotFound, TaskDetailsForm],
+  imports: [FormsModule, Loader, TaskDetailsNotFound, TaskDetailsForm, TaskComments],
   templateUrl: './task-details.html',
   styleUrl: './task-details.scss',
 })

@@ -50,4 +50,16 @@ export class TasksService {
   removeAttachment(taskId: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${taskId}/attachment`);
   }
+
+  getComments(taskId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/${taskId}/comments`);
+  }
+
+  addComment(taskId: number, content: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/${taskId}/comments`, { content });
+  }
+
+  deleteComment(commentId: number): Observable<any> {
+    return this.http.delete(`/api/comments/${commentId}`);
+  }
 }

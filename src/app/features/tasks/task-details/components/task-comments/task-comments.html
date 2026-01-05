@@ -1,0 +1,45 @@
+<div class="comments-section">
+  <h3><i class="far fa-comments"></i> Comments ({{ comments.length }})</h3>
+
+  <div class="comment-form">
+    <textarea
+      [(ngModel)]="newCommentContent"
+      placeholder="Write a comment..."
+      [disabled]="isSubmitting"
+    ></textarea>
+
+    @if (errorMessage) {
+    <span class="error-text">{{ errorMessage }}</span>
+    }
+
+    <button (click)="submitComment()" [disabled]="isSubmitting || !newCommentContent">
+      {{ isSubmitting ? 'Posting...' : 'Post Comment' }}
+    </button>
+  </div>
+
+  <div class="comments-list">
+    @if (isLoading) {
+    <app-loader message="Fetching comments..."></app-loader>
+    } @else { @for (comment of comments; track comment.id) {
+    <div class="comment-item">
+      <div class="comment-header">
+        <div class="user-info">
+          <strong>{{ comment.user?.name }}</strong>
+          <small>{{ comment.created_at | date : 'short' }}</small>
+        </div>
+
+        <button
+          class="delete-comment-btn"
+          (click)="onDeleteComment(comment.id)"
+          title="Delete comment"
+        >
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+      <p>{{ comment.content }}</p>
+    </div>
+    } @empty {
+    <p class="no-comments">No comments yet. Be the first to comment!</p>
+    } }
+  </div>
+</div>
