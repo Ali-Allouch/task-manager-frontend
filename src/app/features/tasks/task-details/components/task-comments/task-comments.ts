@@ -35,6 +35,11 @@ export class TaskComments {
   }
 
   loadComments() {
+    if (!this.taskId || this.taskId === 0) {
+      this.isLoading = false;
+      return;
+    }
+
     this.tasksService.getComments(this.taskId).subscribe({
       next: (data) => {
         this.comments = data;
@@ -43,6 +48,7 @@ export class TaskComments {
       },
       error: (err) => {
         this.isLoading = false;
+        this.cdr.detectChanges();
         console.error('Failed to load comments', err);
       },
     });

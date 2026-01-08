@@ -18,7 +18,8 @@
     (remove)="onRemoveAttachment()"
     (fileSelected)="onFileSelected($event)"
   ></app-task-details-form>
+  @if (isEditMode) {
   <hr class="section-divider" />
   <app-task-comments [taskId]="task.id"></app-task-comments>
-  }
+  } }
 </div>
