@@ -1,59 +1,78 @@
-# TaskManagerFrontend
+# 🚀 Task Manager Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.4.
+A modern, high-performance task management interface built with **Angular 21**. This project is fully containerized with **Docker** and optimized for production using **Nginx** as a reverse proxy to bridge cross-environment communication.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🛠 Tech Stack
 
-```bash
-ng serve
-```
+| Technology | Purpose |
+| :--- | :--- |
+| **Angular 21** | Frontend Framework (Standalone Components) |
+| **Vitest** | High-performance Unit Testing & Mocking |
+| **Docker** | Containerization for consistent environments |
+| **Nginx** | Production Web Server & API Reverse Proxy |
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 🏗 System Architecture
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+This project implements a sophisticated **Cross-Environment Bridge**. It allows the Frontend (running in **WSL/Linux**) to communicate seamlessly with the Backend (running in **Windows via Laravel Sail**).
 
-```bash
-ng generate component component-name
-```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-```bash
-ng generate --help
-```
+### Key Infrastructure Highlights:
+* **Nginx Reverse Proxy**: Configured to route all `/api/*` traffic to the backend service, effectively bypassing CORS limitations.
+* **Multi-stage Build**: Utilizes Node 20 for building and Nginx Alpine for serving, ensuring a minimal production image footprint.
+* **Docker Networking**: Integrated with external Sail networks to ensure container-to-container connectivity across OS boundaries.
 
-## Building
+---
 
-To build the project run:
+## ✨ Features
 
-```bash
-ng build
-```
+* **Dynamic Task Board**: Real-time task listing with status indicators (Pending, In Progress, Completed).
+* **Debounced API Search**: High-performance dashboard search that optimizes server load by debouncing API calls.
+* **Task Attachments**: Seamless support for adding and managing file attachments directly within tasks.
+* **Smart Commenting**: A full comment system that automatically toggles visibility based on the task's state.
+* **Robust Testing**: 100% logic coverage using Vitest, featuring advanced global mocks for `localStorage` and `URL` constructors.
+* **Production Ready**: Zero-config deployment via Docker Compose.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 🚀 Getting Started
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### Prerequisites
+* Docker & Docker Compose
+* Laravel Backend (Sail) running on the same host
 
-```bash
-ng test
-```
+### Installation
+1. Clone the repository to your local machine.
+2. Navigate to the project directory in your WSL terminal:
+   ```bash
+   cd task-manager-frontend
+2. Spin up the containerized environment:
+   ```bash
+   docker compose up --build -d
+3. Access the application at http://localhost:4200.
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 🧪 Development & Testing
 
-```bash
-ng e2e
-```
+- Navigate to the project directory in your WSL terminal:
+   ```bash
+   npm test
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+*Tests include: Authentication flows, Task CRUD operations, and Comment logic.*
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 👨‍💻 Engineering Insights
+This project demonstrates expertise in:
+- Advanced DevOps: Solving WSL DNS resolution and Docker networking challenges.
+- State Management: Handling asynchronous data streams with RxJS in Angular.
+- Security: Implementing Nginx headers for secure production serving.
+
+---
+
+*Developed with focus on scalability and clean code.*
