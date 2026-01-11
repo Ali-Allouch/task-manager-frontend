@@ -1,0 +1,14 @@
+services:
+  frontend-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: task-frontend-container
+    ports:
+      - "4200:80"
+    networks:
+      - task-manager-api_sail
+
+networks:
+  task-manager-api_sail:
+    external: true
